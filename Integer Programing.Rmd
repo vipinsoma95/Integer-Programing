@@ -1,0 +1,153 @@
+---
+title: "branch"
+output: html_document
+---
+
+Q) Solving Integer Programming using LP Solver API for a two-constraint problem.
+
+```{r}
+library(lpSolveAPI)
+```
+
+```{r}
+h<-read.lp("problem.lp")
+
+h
+```
+
+```{r}
+solve(h)
+get.objective(h)
+get.constraints(h)
+
+get.variables(h)
+```
+Here Branch 1 = 3 
+z value is 41.25
+
+1. we are doing for 3<=x1
+
+BRANCH 1 !!!
+
+```{r}
+b<-read.lp('branch1.lp')
+b
+```
+
+
+
+```{r}
+solve(b)
+get.objective(b)
+get.constraints(b)
+
+get.variables(b)
+```
+
+
+z value is 39
+and both x1 and x2 = 3 and BEST Solution 
+
+```{r}
+c<-read.lp('b_c.lp')
+c
+solve(c)
+get.objective(c)
+get.constraints(c)
+
+get.variables(c )
+```
+ 
+ Above z value is 41 and x1 = 4 x2 = 1.8
+ 
+```{r}
+c1<-read.lp('c_c1.lp')
+c1
+solve(c1)
+get.objective(c1)
+get.constraints(c1)
+
+get.variables(c1)
+```
+ 
+```{r}
+c2<-read.lp('c_c2.lp')
+c2
+solve(c2)
+get.objective(c2)
+get.constraints(c2)
+
+get.variables(c2)
+```
+ In fesable solution
+ 
+```{r}
+c1_1<-read.lp('c_c1_1.lp')
+c1_1
+solve(c1_1)
+get.objective(c1_1)
+get.constraints(c1_1)
+
+get.variables(c1_1)
+```
+
+ Best Solution So far x1 = 5, x2 = 0 z = 40
+ 
+ 
+```{r}
+c1_2<-read.lp('c_c1_2.lp')
+c1_2
+solve(c1_2)
+get.objective(c1_2)
+get.constraints(c1_2)
+get.variables(c1_2)
+
+
+```
+ // In Feseable//
+ 
+ BRANCH 2 !!
+ 
+```{r}
+b2<-read.lp('branch2.lp')
+b2
+solve(b2)
+get.objective(b2)
+get.constraints(b2)
+
+get.variables(b2)
+```
+  Here 
+ 3<=  x1 >=4 is already been done  for first branch so we wont be doing it again 
+ 
+```{r}
+b2_1<-read.lp('branch2_1.lp')
+b2_1
+solve(b2_1)
+get.objective(b2_1)
+get.constraints(b2_1)
+
+get.variables(b2_1)
+
+```
+ 
+ 
+```{r}
+x1 <-c(3.75,3 ,4,4.4,3.75,5,3.75,3.8,3)
+x2 <- c(2.25,3,1.8,1,2.25,0,2.25,2,3)
+z <- c(41.25,39,41,40.5,41.25,40,41.25,41,39)
+optimal_solution <- c('head','no','fesible soltuion','no','no','best solution','no','no','fesible solution')
+
+
+ branch_table <- data.frame(x1,x2,z,optimal_solution)
+ 
+ branch_table
+```
+ 
+```{r}
+plot(branch_table$x1,branch_table$x2,xlab = 'X1 values',ylab = 'X2 values', main = 'Finding optimal values of X1 and X2')
+```
+
+ So from the above graph  it is clear that x1 =5 and x2 = 0 is the best solution !!
+ 
+ 
